@@ -140,7 +140,7 @@ Không còn. Điểm chỉ được ghi vào dict `STUDENTS` nằm trong bộ nh
 Khi server khởi động lại, `sodiem.py` được nạp lại từ đầu và dữ liệu mẫu ban đầu được tạo
 lại. Ứng dụng chưa lưu thay đổi vào file hay cơ sở dữ liệu nào.
 
-**Câu 3: Vì sao dùng được `request` trong hàm xử lý lỗi dù nó không phải view function?**
+**Vì sao dùng được `request` trong hàm xử lý lỗi dù nó không phải view function?**
 
 `request` là biến toàn cục gắn với request context, không phải với view function. Flask tạo
 context này khi bắt đầu xử lý một request và chỉ huỷ khi request đã có phản hồi. Lỗi 400, 404,
