@@ -72,6 +72,17 @@ CSDL,7.0
 MMT,9.0
 ```
 
+**Lọc theo lớp và điểm trung bình (3)**: `curl.exe -i "http://127.0.0.1:8000/api/students?lop=k47a&min_avg=7"`
+
+```text
+HTTP/1.1 200 OK
+Content-Type: application/json
+```
+
+```json
+[{"mssv":"23T1020001","name":"Nguyễn Văn An","lop":"K47A","scores":{"PMMNM":8.5,"CSDL":7.0,"MMT":9.0},"average":8.17,"rank":"Khá"}]
+```
+
 **Tham số `min_avg` sai kiểu (4)**
 
 ```json
@@ -128,3 +139,11 @@ Header `Location` chỉ cho client biết địa chỉ tài nguyên vừa tạo,
 Không còn. Điểm chỉ được ghi vào dict `STUDENTS` nằm trong bộ nhớ của tiến trình Python.
 Khi server khởi động lại, `sodiem.py` được nạp lại từ đầu và dữ liệu mẫu ban đầu được tạo
 lại. Ứng dụng chưa lưu thay đổi vào file hay cơ sở dữ liệu nào.
+
+**Câu 3: Vì sao dùng được `request` trong hàm xử lý lỗi dù nó không phải view function?**
+
+`request` là biến toàn cục gắn với request context, không phải với view function. Flask tạo
+context này khi bắt đầu xử lý một request và chỉ huỷ khi request đã có phản hồi. Lỗi 400, 404,
+405 xảy ra ngay trong lúc request đó đang được xử lý, và Flask gọi hàm xử lý lỗi trước khi
+context bị huỷ. Vì vậy `request.path` vẫn đọc được, và hàm có thể dựa vào đó để chọn trả JSON
+(đường dẫn bắt đầu bằng `/api/`) hay trang HTML.
